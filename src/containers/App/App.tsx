@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { doIt, doIt2 } from '../../public/promise';
+import { doIt, doIt2, doIt3 } from '../../public/promise';
+import SimpleComponent from '../../public/simple-component';
 
 interface OwnProps {
 }
@@ -7,6 +8,7 @@ interface OwnProps {
 interface OwnState {
 	message1: string;
 	message2: string;
+	loading: boolean;
 }
 
 class App extends React.Component<OwnProps, OwnState> {
@@ -16,6 +18,7 @@ class App extends React.Component<OwnProps, OwnState> {
 		this.state = {
 			message1: 'Initial message1',
 			message2: 'Initial message2',
+			loading: true,
 		};
 	}
 
@@ -40,6 +43,15 @@ class App extends React.Component<OwnProps, OwnState> {
 				message2: error.message
 			}));
 		}
+
+		try {
+			const loading = await doIt3();
+			this.setState(() => ({
+				loading
+			}));
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	public render() {
@@ -47,6 +59,7 @@ class App extends React.Component<OwnProps, OwnState> {
 			<div>
 				<p>{this.state.message1}</p>
 				<p>{this.state.message2}</p>
+				<SimpleComponent loading={this.state.loading}/>
 			</div>
 		);
 	}

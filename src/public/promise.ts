@@ -25,3 +25,11 @@ export const doIt2 = (): Promise<string> => {
 		}, 2000);
 	});
 };
+
+export const doIt3 = (): Promise<boolean> => {
+	return new Promise((resolve: (loading: boolean) => void) => {
+		setTimeout(() => {
+			resolve(false);
+		}, 2000);
+	});
+};
